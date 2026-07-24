@@ -1,0 +1,16 @@
+function greaterThanValue(arr, value) {
+    let result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > value) {
+            result.push(arr[i]);
+        }
+    }
+
+    return result;
+}
+
+let arr = [5, 10, 15, 20, 25];
+let value = 12;
+
+console.log(greaterThanValue(arr, value));
