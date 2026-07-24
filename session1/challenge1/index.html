@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Banking System</title>
+</head>
+<body>
+
+<h2>ATM Banking System</h2>
+
+<label>Enter PIN:</label><br>
+<input type="password" id="pin">
+<button onclick="login()">Login</button>
+
+<hr>
+
+<div id="atm" style="display: none;">
+
+    <label>Select Operation:</label><br>
+
+    <select id="operation">
+        <option value="withdraw">Withdraw</option>
+        <option value="deposit">Deposit</option>
+        <option value="balance">Check Balance</option>
+        <option value="changePin">Change PIN</option>
+    </select>
+
+    <br><br>
+
+    <label>Amount / New PIN:</label><br>
+    <input type="text" id="amount">
+
+    <br><br>
+
+    <button onclick="submitOperation()">Submit</button>
+
+</div>
+
+<hr>
+
+<p id="result"></p>
+
+<script src="script.js"></script>
+
+</body>
+</html>

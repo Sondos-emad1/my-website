@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Commerce Checkout</title>
+</head>
+<body>
+
+<h2>E-Commerce Checkout System</h2>
+
+<label>Customer Name</label><br>
+<input type="text" id="customerName"><br><br>
+
+<label>Product Category</label><br>
+<select id="category">
+    <option>Electronics</option>
+    <option>Clothes</option>
+    <option>Food</option>
+</select><br><br>
+
+<label>Product Price</label><br>
+<input type="number" id="price"><br><br>
+
+<label>Quantity</label><br>
+<input type="number" id="quantity"><br><br>
+
+<label>Coupon Code</label><br>
+<input type="text" id="coupon"><br><br>
+
+<label>Payment Method</label><br>
+<select id="payment">
+    <option>Cash</option>
+    <option>Visa</option>
+</select><br><br>
+
+<button onclick="checkout()">Checkout</button>
+
+<hr>
+
+<p id="result"></p>
+
+<script src="script.js"></script>
+
+</body>
+</html>

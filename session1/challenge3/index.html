@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Student Portal</title>
+</head>
+<body>
+
+<h2>University Student Portal</h2>
+
+<label>Student Name</label><br>
+<input type="text" id="studentName"><br><br>
+
+<label>Attendance Percentage</label><br>
+<input type="number" id="attendance"><br><br>
+
+<label>Midterm Score</label><br>
+<input type="number" id="midterm"><br><br>
+
+<label>Final Exam Score</label><br>
+<input type="number" id="finalExam"><br><br>
+
+<label>Assignment Score</label><br>
+<input type="number" id="assignment"><br><br>
+
+<label>Tuition Paid</label><br>
+<select id="tuition">
+    <option value="yes">Paid</option>
+    <option value="no">Not Paid</option>
+</select>
+
+<br><br>
+
+<button onclick="checkResult()">Check Result</button>
+
+<hr>
+
+<p id="result"></p>
+
+<script src="script.js"></script>
+
+</body>
+</html>
