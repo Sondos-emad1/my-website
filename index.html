@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My First Website</title>
+    <title>ATM Machine</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Hello Sondos 👋</h1>
-<button onclick="sayHello()">Click Me</button><button>Click Me</button>
+<div class="container">
 
-    <script src="script.js"></script>
+    <div id="login">
+        <h2>ATM Login</h2>
+
+        <input type="password" id="pin" placeholder="Enter PIN">
+
+        <button onclick="login()">Login</button>
+
+        <p id="message"></p>
+    </div>
+
+    <div id="atm" style="display:none;">
+
+        <h2>ATM Machine</h2>
+
+        <select id="operation">
+            <option value="withdraw">Withdraw</option>
+            <option value="deposit">Deposit</option>
+            <option value="balance">Check Balance</option>
+            <option value="changePin">Change PIN</option>
+        </select>
+
+        <input type="text" id="amount" placeholder="Amount or New PIN">
+
+        <button onclick="submitOperation()">Submit</button>
+
+        <h3 id="result"></h3>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
