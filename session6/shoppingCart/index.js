@@ -15,4 +15,4 @@ removeFromCart(3);
 
 listCart();
 
-calculateTotal();
+calculateTotal() 
