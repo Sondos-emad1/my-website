@@ -4,10 +4,13 @@ A RESTful backend API for managing a restaurant system using Node.js, Express.js
 
 ## Features
 
-* User registration and login
+* User signup and login
 * JWT authentication
 * Password hashing using bcryptjs
+* Route protection using JWT middleware
 * Role-based authorization
+* Admin and Customer roles
+* Protected user profile route
 * Admin-only operations
 * Menu CRUD operations
 * Reservation CRUD operations
@@ -16,8 +19,8 @@ A RESTful backend API for managing a restaurant system using Node.js, Express.js
 * Images stored in the `uploads` folder
 * Image path stored with menu data in MongoDB
 * MongoDB database integration
-* Controllers for separating business logic from routes
-* Middleware for authentication, authorization, and file uploads
+* Centralized database configuration
+* Controllers for business logic
 * Error handling and validation
 
 ## Technologies Used
@@ -35,6 +38,9 @@ A RESTful backend API for managing a restaurant system using Node.js, Express.js
 
 ```text
 RestaurantManagmentSystem/
+│
+├── config/
+│   └── db.js
 │
 ├── controllers/
 │   ├── auth.controller.js
@@ -68,107 +74,325 @@ RestaurantManagmentSystem/
 └── server.js
 ```
 
-## Architecture
+## Project Architecture
 
-The project follows a simple MVC-style structure.
+The project follows a modular architecture:
 
-### Routes
+* **Config** – handles the MongoDB database connection.
+* **Models** – define MongoDB schemas using Mongoose.
+* **Controllers** – contain the application and business logic.
+* **Routes** – define API endpoints and connect them to controllers.
+* **Middleware** – handles authentication, authorization, and image uploads.
+* **Uploads** – stores uploaded menu images.
+* **Server** – initializes Express, middleware, routes, and the database connection.
 
-The `routes` folder defines the API endpoints and connects each endpoint to the appropriate controller.
+## User Roles
 
-### Controllers
+The system currently supports two user roles:
 
-The `controllers` folder contains the main business logic for each feature.
+### Admin
 
-* `auth.controller.js` handles registration and login.
-* `menu.controller.js` handles menu CRUD operations and image uploads.
-* `reservation.controller.js` handles reservation operations.
-* `user.controller.js` handles user management.
+Admins can:
 
-### Models
+* Manage menu items
+* View and manage reservations
+* View users
+* Delete users
+* Access admin-protected routes
 
-The `models` folder contains the Mongoose schemas used to define the structure of the MongoDB data.
+### Customer
 
-### Middleware
+Customers can:
 
-The `middleware` folder contains reusable middleware for:
+* Create an account
+* Login
+* View their profile
+* View menu items
+* Create reservations
 
-* JWT authentication
-* Admin authorization
-* Image upload using Multer
+Customers cannot access admin-only operations.
 
-## How to Run
+## Authentication
 
-1. Clone the project from GitHub.
-2. Open the project folder in VS Code.
-3. Install the dependencies:
+The authentication system uses:
 
-```bash
-npm install
+* **bcryptjs** for password hashing
+* **jsonwebtoken (JWT)** for authentication
+* **auth middleware** for protecting private routes
+* **admin middleware** for role-based authorization
+
+### Authentication Flow
+
+```text
+User
+ │
+ ├── Signup
+ │     ↓
+ │   Hash Password
+ │     ↓
+ │   Save User
+ │     ↓
+ │   Generate JWT
+ │
+ └── Login
+       ↓
+   Verify Password
+       ↓
+   Generate JWT
+       ↓
+   Protected Routes
 ```
 
-4. Create a `.env` file and add the MongoDB connection string and JWT secret.
+## Authentication Routes
+
+### Signup
+
+**POST**
+
+```text
+/api/auth/signup
+```
+
+Example:
+
+```json
+{
+  "name": "Test Customer",
+  "email": "customer@example.com",
+  "password": "123456"
+}
+```
+
+Example response:
+
+```json
+{
+  "message": "Signup successful",
+  "token": "JWT_TOKEN",
+  "user": {
+    "id": "USER_ID",
+    "name": "Test Customer",
+    "email": "customer@example.com",
+    "role": "customer"
+  }
+}
+```
+
+A JWT token is returned after successful registration.
+
+### Login
+
+**POST**
+
+```text
+/api/auth/login
+```
+
+Example:
+
+```json
+{
+  "email": "customer@example.com",
+  "password": "123456"
+}
+```
+
+Example response:
+
+```json
+{
+  "message": "Login successful",
+  "token": "JWT_TOKEN",
+  "user": {
+    "id": "USER_ID",
+    "name": "Test Customer",
+    "email": "customer@example.com",
+    "role": "customer"
+  }
+}
+```
+
+### Login with Incorrect Credentials
+
+If the email or password is incorrect:
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+## Protected Routes
+
+Private routes require a valid JWT token.
+
+The token is sent using the Authorization header:
+
+```text
+Authorization: Bearer YOUR_TOKEN
+```
+
+### Protected User Profile
+
+**GET**
+
+```text
+/api/users/profile
+```
+
+This route can be accessed by any authenticated user.
 
 Example:
 
 ```text
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
+GET http://localhost:3000/api/users/profile
 ```
 
-5. Start the server:
-
-```bash
-node server.js
-```
-
-6. The API will run on:
+With:
 
 ```text
-http://localhost:3000
+Authorization: Bearer YOUR_TOKEN
 ```
 
-## API Usage
+Example response:
+
+```json
+{
+  "message": "Profile retrieved successfully",
+  "user": {
+    "_id": "USER_ID",
+    "name": "Test Customer",
+    "email": "customer@example.com",
+    "role": "customer"
+  }
+}
+```
+
+### Without Token
+
+If the request does not contain a token:
+
+```json
+{
+  "message": "Access denied. No token provided."
+}
+```
+
+### Invalid Token
+
+If the token is invalid or expired, access is denied.
+
+## Role-Based Authorization
+
+Some routes are restricted to administrators.
+
+For example:
+
+```text
+GET /api/reservations
+```
+
+requires:
+
+* A valid JWT token
+* The `admin` role
+
+If a customer tries to access an admin-only route:
+
+```json
+{
+  "message": "Admin access required"
+}
+```
+
+This demonstrates role-based authorization.
+
+## API Routes
 
 ### Authentication
 
-Users can register and login through the authentication endpoints.
+```text
+POST /api/auth/signup
+POST /api/auth/login
+```
 
-* Register a new user
-* Login using email and password
-* Receive a JWT token after successful login
-* Use the token to access protected endpoints
+### Users
+
+```text
+GET    /api/users/profile
+GET    /api/users
+GET    /api/users/:id
+DELETE /api/users/:id
+```
 
 ### Menu
 
-The Menu API allows users to:
+```text
+GET    /api/menu
+GET    /api/menu/:id
+POST   /api/menu
+PUT    /api/menu/:id
+DELETE /api/menu/:id
+```
 
-* View all menu items
-* View a single menu item
+### Reservations
+
+```text
+POST   /api/reservations
+GET    /api/reservations
+GET    /api/reservations/:id
+PUT    /api/reservations/:id
+DELETE /api/reservations/:id
+```
+
+## Menu
+
+The Menu API allows users to view menu items.
 
 Administrators can:
 
 * Add menu items
+* View all menu items
+* View a single menu item
 * Update menu items
 * Delete menu items
-* Upload an image for a menu item
+* Upload menu images
 
-Menu creation and updating use `multipart/form-data` when an image is included.
+Example:
 
-### Reservations
+```json
+{
+  "name": "Savora Signature Steak",
+  "description": "Tender grilled steak served with seasonal vegetables and our signature sauce",
+  "price": 32,
+  "category": "Steak"
+}
+```
 
-The Reservation API allows authenticated users to:
+## Reservations
 
-* Create reservations
+Authenticated users can create reservations.
 
 Administrators can:
 
 * View all reservations
 * View a single reservation
-* Update reservation information
+* Update reservations
 * Delete reservations
 
-### Users
+Example:
+
+```json
+{
+  "fullName": "Test Customer",
+  "email": "customer@example.com",
+  "date": "2026-09-01",
+  "time": "19:00",
+  "guests": 2
+}
+```
+
+## Users
 
 The Users API is protected and available to administrators.
 
@@ -178,15 +402,15 @@ Administrators can:
 * View a single user
 * Delete users
 
-Passwords are not returned when retrieving user information.
+Passwords are excluded from user responses.
+
+The `/api/users/profile` route is available to all authenticated users.
 
 ## Image Upload
 
 Menu images are uploaded using Multer.
 
-When creating or updating a menu item, the request can include an image file using the `image` field.
-
-The uploaded image is stored in:
+Uploaded images are stored in:
 
 ```text
 uploads/
@@ -200,86 +424,116 @@ Example:
 /uploads/menu-image.jpg
 ```
 
-Uploaded images can be accessed through:
+Images can be accessed through:
 
 ```text
 http://localhost:3000/uploads/menu-image.jpg
 ```
 
-## Authentication
-
-Protected endpoints require a JWT token.
-
-The token is sent using the Authorization header as a Bearer token.
-
-Example:
-
-```text
-Authorization: Bearer <JWT_TOKEN>
-```
-
-Admin-only endpoints require a valid authenticated user with the `admin` role.
-
 ## Database
 
 The project uses MongoDB with Mongoose.
 
-The main collections are:
+The database connection is handled in:
+
+```text
+config/db.js
+```
+
+Main collections:
 
 * users
 * menus
 * reservations
 
-## API Endpoints
+## Environment Variables
 
-### Authentication
+Create a `.env` file in the project root:
 
-* `POST /api/auth/register` — Register a new user
-* `POST /api/auth/login` — Login and receive a JWT token
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
-### Menu
+The `.env` file should not be uploaded to GitHub.
 
-* `GET /api/menu` — Get all menu items
-* `GET /api/menu/:id` — Get one menu item
-* `POST /api/menu` — Create a menu item (Admin)
-* `PUT /api/menu/:id` — Update a menu item (Admin)
-* `DELETE /api/menu/:id` — Delete a menu item (Admin)
+## How to Run
 
-### Reservations
+1. Clone the project from GitHub.
+2. Open the project folder in VS Code.
+3. Install dependencies:
 
-* `POST /api/reservations` — Create a reservation (Authenticated user)
-* `GET /api/reservations` — Get all reservations (Admin)
-* `GET /api/reservations/:id` — Get one reservation (Admin)
-* `PUT /api/reservations/:id` — Update a reservation (Admin)
-* `DELETE /api/reservations/:id` — Delete a reservation (Admin)
+```bash
+npm install
+```
 
-### Users
+4. Create the `.env` file and add the required environment variables.
+5. Start the server from the project root:
 
-* `GET /api/users` — Get all users (Admin)
-* `GET /api/users/:id` — Get one user (Admin)
-* `DELETE /api/users/:id` — Delete a user (Admin)
+```bash
+node server.js
+```
 
-## Testing
+6. The API will run on:
 
-API endpoints were tested using Postman, including:
+```text
+http://localhost:3000
+```
 
-* User registration
-* User login
-* JWT authentication
-* Admin authorization
-* Menu CRUD operations
-* Reservation CRUD operations
+## Testing with Postman
+
+The following tests were performed:
+
+### Authentication Tests
+
+* User signup
+* Successful login
+* Login with incorrect credentials
+* JWT token generation
+* Protected route without token
+* Protected route with valid token
+
+### Authorization Tests
+
+* Admin accessing admin routes
+* Customer accessing protected profile route
+* Customer attempting to access admin-only routes
+
+### Other Tests
+
+* Menu CRUD
+* Reservation CRUD
 * User management
 * Image upload using Multer
-* Protected API endpoints
+
+## Session 17 Requirements
+
+The authentication module implements the requirements of the Session 17 assignment.
+
+### Implemented Requirements
+
+* Mongoose User Model
+* Admin and Customer roles
+* User signup
+* User login
+* Password hashing using bcryptjs
+* JWT token generation
+* JWT token verification
+* Route protection middleware
+* Protected `/api/users/profile` route
+* Role-based authorization
+* Postman testing
+* Modular project structure using routes, controllers, models, and middleware
 
 ## Security
 
 * Passwords are hashed before being stored.
 * JWT is used for authentication.
-* Admin routes are protected with role-based authorization.
-* User passwords are excluded from API responses.
-* Environment variables are used for sensitive configuration.
+* Protected routes require a valid JWT.
+* Admin routes require the `admin` role.
+* Passwords are excluded from API responses.
+* Environment variables are used for sensitive information.
+* `.env` is excluded from Git using `.gitignore`.
 
 ## Author
 

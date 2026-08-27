@@ -3,8 +3,21 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.model");
 
-// Register
-const register = async (req, res) => {
+const createToken = (user) => {
+  return jwt.sign(
+    {
+      id: user._id,
+      role: user.role
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1d"
+    }
+  );
+};
+
+// Signup
+const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -27,11 +40,15 @@ const register = async (req, res) => {
     const user = await User.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      role: "customer"
     });
 
+    const token = createToken(user);
+
     res.status(201).json({
-      message: "User registered successfully",
+      message: "Signup successful",
+      token,
       user: {
         id: user._id,
         name: user.name,
@@ -39,6 +56,7 @@ const register = async (req, res) => {
         role: user.role
       }
     });
+
   } catch (error) {
     res.status(500).json({
       message: error.message
@@ -76,21 +94,19 @@ const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      {
-        id: user._id,
-        role: user.role
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d"
-      }
-    );
+    const token = createToken(user);
 
     res.json({
       message: "Login successful",
-      token
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
     });
+
   } catch (error) {
     res.status(500).json({
       message: error.message
@@ -99,6 +115,6 @@ const login = async (req, res) => {
 };
 
 module.exports = {
-  register,
+  signup,
   login
 };
