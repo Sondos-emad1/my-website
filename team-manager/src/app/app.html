@@ -1,0 +1,201 @@
+<h1>Team Manager</h1>
+
+<div class="form">
+
+  <h2>Add New Member</h2>
+
+<input
+type="text"
+placeholder="Member Name"
+[(ngModel)]="newMember.name"
+
+>
+
+@if (errorMessage === 'Name is required') { <p class="error">Name is required</p>
+}
+
+<input
+type="number"
+placeholder="Age"
+[(ngModel)]="newMember.age"
+
+>
+
+@if (errorMessage === 'Age is required') { <p class="error">Age is required</p>
+}
+
+@if (errorMessage === 'Age must be 18 or older') { <p class="error">Age must be 18 or older</p>
+}
+
+<select [(ngModel)]="newMember.department">
+
+```
+@for (department of departments; track department) {
+  <option [value]="department">
+    {{ department }}
+  </option>
+}
+```
+
+  </select>
+
+  <label>
+    <input
+      type="checkbox"
+      [(ngModel)]="newMember.available"
+    >
+    Available
+  </label>
+
+<button (click)="addMember()">
+Add Member </button>
+
+</div>
+
+<div class="controls">
+
+<select [(ngModel)]="selectedDepartment">
+
+```
+<option value="All">
+  All Departments
+</option>
+
+@for (department of departments; track department) {
+  <option [value]="department">
+    {{ department }}
+  </option>
+}
+```
+
+  </select>
+
+<button (click)="viewMode = 'card'">
+Card View </button>
+
+<button (click)="viewMode = 'list'">
+List View </button>
+
+</div>
+
+@if (members.length === 0) {
+
+  <p class="empty">
+    No members exist.
+  </p>
+
+} @else {
+
+@if (filteredMembers.length === 0) {
+
+```
+<p class="empty">
+  No members found for this department.
+</p>
+```
+
+} @else {
+
+```
+@switch (viewMode) {
+
+  @case ('card') {
+
+    <div class="cards">
+
+      @for (member of filteredMembers; track member.name) {
+
+        <div class="card">
+
+          <h3>{{ member.name }}</h3>
+
+          <p>Age: {{ member.age }}</p>
+
+          <p>Department: {{ member.department }}</p>
+
+          @if (member.available) {
+
+            <p class="available">
+              Available
+            </p>
+
+          } @else {
+
+            <p class="unavailable">
+              Unavailable
+            </p>
+
+          }
+
+          <button (click)="toggleAvailability(member)">
+            Toggle Availability
+          </button>
+
+          <button (click)="deleteMember(member)">
+            Delete
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+  @case ('list') {
+
+    <div class="list">
+
+      @for (member of filteredMembers; track member.name) {
+
+        <div class="list-item">
+
+          <span>
+            {{ member.name }}
+          </span>
+
+          <span>
+            {{ member.department }}
+          </span>
+
+          <span>
+            Age: {{ member.age }}
+          </span>
+
+          @if (member.available) {
+
+            <span>
+              ✔️ Available
+            </span>
+
+          } @else {
+
+            <span>
+              ❌ Unavailable
+            </span>
+
+          }
+
+          <button (click)="toggleAvailability(member)">
+            Toggle
+          </button>
+
+          <button (click)="deleteMember(member)">
+            Delete
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+}
+```
+
+}
+
+}
