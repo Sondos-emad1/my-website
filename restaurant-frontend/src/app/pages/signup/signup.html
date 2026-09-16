@@ -1,0 +1,109 @@
+<section class="signup-page">
+
+  <div class="signup-card">
+
+    <div class="signup-header">
+
+      <p class="small-title">
+        JOIN SAVORA
+      </p>
+
+      <h1>
+        Create Your <span>Account</span>
+      </h1>
+
+      <p>
+        Create an account and start enjoying your Savora experience.
+      </p>
+
+    </div>
+
+    <form (ngSubmit)="signup()">
+
+      <div class="form-group">
+
+        <label for="name">
+          Full Name
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          name="name"
+          [(ngModel)]="name"
+          placeholder="Enter your name"
+          required
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          required
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          required
+        >
+
+      </div>
+
+      @if (errorMessage) {
+
+        <div class="error-message">
+          {{ errorMessage }}
+        </div>
+
+      }
+
+      <button
+        type="submit"
+        [disabled]="loading"
+      >
+
+        @if (loading) {
+          Creating account...
+        } @else {
+          Create Account
+        }
+
+      </button>
+
+    </form>
+
+    <div class="login-link">
+
+      <span>Already have an account?</span>
+
+      <a routerLink="/login">
+        Login
+      </a>
+
+    </div>
+
+  </div>
+
+</section>

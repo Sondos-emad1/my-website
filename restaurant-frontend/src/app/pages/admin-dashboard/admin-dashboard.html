@@ -1,0 +1,134 @@
+<section class="admin-dashboard">
+
+  <div class="dashboard-header">
+
+    <p class="small-title">
+      ADMIN PANEL
+    </p>
+
+    <h1>
+      Welcome to <span>Savora</span>
+    </h1>
+
+    <p>
+      Manage your restaurant system from one place.
+    </p>
+
+  </div>
+
+
+  <div class="dashboard-cards">
+
+
+    <!-- Users -->
+
+    <div class="dashboard-card">
+
+      <div class="card-icon">
+        👥
+      </div>
+
+      <div>
+
+        <h3>
+          Users
+        </h3>
+
+        <strong>
+          {{ totalUsers() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Menu Items -->
+
+    <div class="dashboard-card">
+
+      <div class="card-icon">
+        🍽️
+      </div>
+
+      <div>
+
+        <h3>
+          Menu Items
+        </h3>
+
+        <strong>
+          {{ totalMenuItems() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Reservations -->
+
+    <div class="dashboard-card">
+
+      <div class="card-icon">
+        📅
+      </div>
+
+      <div>
+
+        <h3>
+          Reservations
+        </h3>
+
+        <strong>
+          {{ totalReservations() }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-section">
+
+    <h2>
+      Restaurant Management
+    </h2>
+
+    <p>
+      Use the sections below to manage Savora.
+    </p>
+
+
+    <div class="management-buttons">
+
+      <button
+        type="button"
+        (click)="goToMenu()"
+      >
+        Manage Menu
+      </button>
+
+
+      <button
+        type="button"
+        (click)="goToReservations()"
+      >
+        Manage Reservations
+      </button>
+
+
+      <button
+        type="button"
+        (click)="goToUsers()"
+      >
+        Manage Users
+      </button>
+
+    </div>
+
+  </div>
+
+</section>

@@ -1,0 +1,139 @@
+.admin-dashboard {
+  min-height: 100vh;
+  padding: 70px 7%;
+  background: #faf9f7;
+  box-sizing: border-box;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.small-title {
+  color: #b88a44;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 46px;
+  color: #222;
+}
+
+.dashboard-header h1 span {
+  color: #b88a44;
+}
+
+.dashboard-header p:last-child {
+  color: #777;
+  margin-top: 15px;
+}
+
+
+.dashboard-cards {
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  border-top: 3px solid #b88a44;
+}
+
+.card-icon {
+  font-size: 32px;
+}
+
+.dashboard-card h3 {
+  margin: 0 0 8px;
+  color: #777;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.dashboard-card strong {
+  color: #222;
+  font-size: 30px;
+}
+
+
+.dashboard-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.dashboard-section h2 {
+  margin: 0 0 10px;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  color: #222;
+}
+
+.dashboard-section > p {
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.management-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.management-buttons button {
+  padding: 13px 25px;
+  border: none;
+  background: #b88a44;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.management-buttons button:hover {
+  background: #967037;
+}
+
+
+@media (max-width: 800px) {
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 550px) {
+
+  .admin-dashboard {
+    padding: 50px 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 36px;
+  }
+
+  .dashboard-section {
+    padding: 25px;
+  }
+
+}

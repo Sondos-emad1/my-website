@@ -1,0 +1,19 @@
+.footer {
+  background: #11100e;
+  color: #aaa;
+  padding: 40px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #2b2925;
+}
+
+.footer h2 {
+  color: #d6a85f;
+  font-family: Georgia, serif;
+  margin: 0 0 8px;
+}
+
+.footer p {
+  margin: 0;
+}

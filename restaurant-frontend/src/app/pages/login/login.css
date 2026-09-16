@@ -1,0 +1,135 @@
+.login-page {
+  min-height: calc(100vh - 80px);
+  background: #f8f5ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  padding: 50px;
+  box-sizing: border-box;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.small-title {
+  color: #b88a44;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  margin-bottom: 15px;
+}
+
+.login-header h1 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  margin: 0 0 15px;
+  color: #1c1a18;
+}
+
+.login-header h1 span {
+  color: #b88a44;
+}
+
+.login-header p:last-child {
+  color: #777;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  outline: none;
+  font-size: 15px;
+}
+
+.form-group input:focus {
+  border-color: #b88a44;
+  background: white;
+}
+
+.login-card button {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  background: #b88a44;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.login-card button:hover {
+  background: #967037;
+}
+
+.login-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: #fff0f0;
+  color: #a33a3a;
+  border: 1px solid #e0b5b5;
+  padding: 12px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #777;
+}
+
+.signup-link a {
+  color: #b88a44;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 550px) {
+
+  .login-card {
+    padding: 30px 22px;
+  }
+
+  .login-header h1 {
+    font-size: 32px;
+  }
+
+}

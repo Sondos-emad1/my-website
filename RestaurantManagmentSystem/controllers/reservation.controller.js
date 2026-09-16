@@ -24,12 +24,31 @@ const createReservation = async (req, res) => {
       message: "Reservation created successfully",
       reservation
     });
+
   } catch (error) {
     res.status(500).json({
       message: error.message
     });
   }
 };
+
+
+// Get my reservations
+const getMyReservations = async (req, res) => {
+  try {
+    const reservations = await Reservation.find({
+      user: req.user.id
+    }).populate("user", "name email");
+
+    res.json(reservations);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
+};
+
 
 // Get all reservations
 const getAllReservations = async (req, res) => {
@@ -38,12 +57,14 @@ const getAllReservations = async (req, res) => {
       .populate("user", "name email");
 
     res.json(reservations);
+
   } catch (error) {
     res.status(500).json({
       message: error.message
     });
   }
 };
+
 
 // Get one reservation
 const getReservationById = async (req, res) => {
@@ -59,12 +80,14 @@ const getReservationById = async (req, res) => {
     }
 
     res.json(reservation);
+
   } catch (error) {
     res.status(400).json({
       message: "Invalid reservation ID"
     });
   }
 };
+
 
 // Update reservation
 const updateReservation = async (req, res) => {
@@ -88,12 +111,14 @@ const updateReservation = async (req, res) => {
       message: "Reservation updated successfully",
       reservation
     });
+
   } catch (error) {
     res.status(400).json({
       message: error.message
     });
   }
 };
+
 
 // Delete reservation
 const deleteReservation = async (req, res) => {
@@ -111,6 +136,7 @@ const deleteReservation = async (req, res) => {
     res.json({
       message: "Reservation deleted successfully"
     });
+
   } catch (error) {
     res.status(400).json({
       message: "Invalid reservation ID"
@@ -118,8 +144,10 @@ const deleteReservation = async (req, res) => {
   }
 };
 
+
 module.exports = {
   createReservation,
+  getMyReservations,
   getAllReservations,
   getReservationById,
   updateReservation,

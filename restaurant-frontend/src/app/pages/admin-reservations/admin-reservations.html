@@ -1,0 +1,153 @@
+<section class="admin-reservations">
+
+  <div class="page-header">
+
+    <p class="small-title">
+      RESERVATION MANAGEMENT
+    </p>
+
+    <h1>
+      Manage <span>Savora Reservations</span>
+    </h1>
+
+    <p>
+      View and manage all restaurant reservations.
+    </p>
+
+    <a
+      routerLink="/admin-dashboard"
+      class="back-btn"
+    >
+      ← Back to Dashboard
+    </a>
+
+  </div>
+
+
+  @if (message) {
+
+    <p class="success-message">
+      {{ message }}
+    </p>
+
+  }
+
+
+  @if (errorMessage) {
+
+    <p class="error-message">
+      {{ errorMessage }}
+    </p>
+
+  }
+
+
+  @if (reservations.length === 0) {
+
+    <div class="empty-box">
+
+      <h2>No Reservations</h2>
+
+      <p>
+        There are currently no reservations.
+      </p>
+
+    </div>
+
+  }
+
+
+  <div class="reservation-grid">
+
+    @for (reservation of reservations; track reservation._id) {
+
+      <div class="reservation-card">
+
+        <div class="reservation-header">
+
+          <div>
+
+            <p class="small-label">
+              CUSTOMER
+            </p>
+
+            <h2>
+              {{ reservation.fullName }}
+            </h2>
+
+          </div>
+
+          <span
+            class="status"
+            [class.pending]="reservation.status === 'pending'"
+            [class.confirmed]="reservation.status === 'confirmed'"
+            [class.cancelled]="reservation.status === 'cancelled'"
+          >
+            {{ reservation.status }}
+          </span>
+
+        </div>
+
+
+        <div class="reservation-info">
+
+          <p>
+            <strong>Email:</strong>
+            {{ reservation.email }}
+          </p>
+
+          <p>
+            <strong>Date:</strong>
+            {{ reservation.date }}
+          </p>
+
+          <p>
+            <strong>Time:</strong>
+            {{ reservation.time }}
+          </p>
+
+          <p>
+            <strong>Guests:</strong>
+            {{ reservation.guests }}
+          </p>
+
+        </div>
+
+
+        <div class="reservation-actions">
+
+          <button
+            type="button"
+            class="confirm-btn"
+            (click)="updateStatus(reservation, 'confirmed')"
+          >
+            Confirm
+          </button>
+
+
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="updateStatus(reservation, 'cancelled')"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="button"
+            class="delete-btn"
+            (click)="deleteReservation(reservation._id)"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</section>

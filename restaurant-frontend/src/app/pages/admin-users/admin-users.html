@@ -1,0 +1,129 @@
+<section class="admin-users">
+
+  <div class="page-header">
+
+    <p class="small-title">
+      USER MANAGEMENT
+    </p>
+
+    <h1>
+      Manage <span>Savora Users</span>
+    </h1>
+
+    <p>
+      View and manage all registered users.
+    </p>
+
+    <a
+      routerLink="/admin-dashboard"
+      class="back-btn"
+    >
+      ← Back to Dashboard
+    </a>
+
+  </div>
+
+
+  @if (message) {
+
+    <p class="success-message">
+      {{ message }}
+    </p>
+
+  }
+
+
+  @if (errorMessage) {
+
+    <p class="error-message">
+      {{ errorMessage }}
+    </p>
+
+  }
+
+
+  @if (users.length === 0) {
+
+    <div class="empty-box">
+
+      <h2>No Users</h2>
+
+      <p>
+        There are currently no registered users.
+      </p>
+
+    </div>
+
+  }
+
+
+  @if (users.length > 0) {
+
+    <div class="users-table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          @for (user of users; track user._id) {
+
+            <tr>
+
+              <td>
+                {{ user.name }}
+              </td>
+
+              <td>
+                {{ user.email }}
+              </td>
+
+              <td>
+
+                <span
+                  class="role"
+                  [class.admin-role]="user.role === 'admin'"
+                  [class.customer-role]="user.role === 'customer'"
+                >
+                  {{ user.role }}
+                </span>
+
+              </td>
+
+              <td>
+
+                <button
+                  type="button"
+                  class="delete-btn"
+                  [disabled]="loading"
+                  (click)="deleteUser(user._id)"
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  }
+
+</section>

@@ -1,0 +1,260 @@
+.admin-menu {
+  min-height: calc(100vh - 80px);
+  background: #faf9f6;
+  padding: 70px 7%;
+  box-sizing: border-box;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.small-title {
+  color: #b88a44;
+  letter-spacing: 4px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.page-header h1 {
+  font-family: Georgia, serif;
+  font-size: 48px;
+  margin: 15px 0;
+  color: #222;
+}
+
+.page-header h1 span {
+  color: #b88a44;
+}
+
+.page-header p:last-child {
+  color: #777;
+  font-size: 17px;
+}
+
+.menu-form-section {
+  max-width: 950px;
+  margin: 0 auto 70px;
+  background: white;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.menu-form-section h2,
+.menu-list-section h2 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  color: #222;
+  margin-bottom: 30px;
+}
+
+.menu-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #b88a44;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.save-btn,
+.cancel-btn {
+  border: none;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #b88a44;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #967037;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background: #eee;
+  color: #444;
+}
+
+.success-message {
+  color: #3c7a45;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #b33a3a;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.menu-list-section {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.menu-card {
+  background: white;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.menu-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.menu-card-content {
+  padding: 25px;
+}
+
+.category {
+  color: #b88a44;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.menu-card h3 {
+  font-family: Georgia, serif;
+  font-size: 23px;
+  margin: 10px 0;
+  color: #222;
+}
+
+.description {
+  color: #777;
+  line-height: 1.6;
+  font-size: 14px;
+  min-height: 45px;
+}
+
+.price {
+  color: #b88a44;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  flex: 1;
+  padding: 11px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.edit-btn {
+  background: #b88a44;
+  color: white;
+}
+
+.delete-btn {
+  background: #eee;
+  color: #a33;
+}
+
+.edit-btn:hover {
+  background: #967037;
+}
+
+.delete-btn:hover {
+  background: #ddd;
+}
+
+.empty-message {
+  color: #777;
+}
+
+@media (max-width: 900px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .admin-menu {
+    padding: 40px 5%;
+  }
+
+  .page-header h1 {
+    font-size: 36px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-form-section {
+    padding: 25px;
+  }
+}

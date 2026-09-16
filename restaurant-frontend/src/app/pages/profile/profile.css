@@ -1,0 +1,155 @@
+.profile-page {
+  min-height: calc(100vh - 80px);
+  background: #faf9f6;
+  padding: 80px 7%;
+  box-sizing: border-box;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.small-title {
+  color: #b88a44;
+  letter-spacing: 4px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.profile-container h1 {
+  font-family: Georgia, serif;
+  font-size: 48px;
+  color: #222;
+  margin: 15px 0 45px;
+}
+
+.profile-container h1 span {
+  color: #b88a44;
+}
+
+.profile-card {
+  background: white;
+  padding: 45px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.profile-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 35px;
+  border-radius: 50%;
+  background: #b88a44;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 38px;
+}
+
+.profile-info {
+  text-align: left;
+  border-top: 1px solid #eee;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.info-item span {
+  color: #888;
+  font-size: 14px;
+}
+
+.info-item strong {
+  color: #333;
+  font-size: 15px;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.profile-buttons button {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reservation-btn {
+  background: #b88a44;
+  color: white;
+}
+
+.reservation-btn:hover {
+  background: #967037;
+}
+
+.logout-btn {
+  background: #eee;
+  color: #555;
+}
+
+.logout-btn:hover {
+  background: #ddd;
+}
+
+.not-logged-in {
+  background: white;
+  padding: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.not-logged-in h2 {
+  font-family: Georgia, serif;
+  color: #222;
+}
+
+.not-logged-in p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.not-logged-in button {
+  background: #b88a44;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+  .profile-page {
+    padding: 50px 5%;
+  }
+
+  .profile-container h1 {
+    font-size: 36px;
+  }
+
+  .profile-card {
+    padding: 30px 20px;
+  }
+
+  .info-item {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .profile-buttons {
+    flex-direction: column;
+  }
+
+}

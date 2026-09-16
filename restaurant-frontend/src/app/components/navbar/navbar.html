@@ -1,0 +1,81 @@
+<nav class="navbar">
+
+  <div class="navbar-container">
+
+    <a routerLink="/" class="logo">
+      SAVORA
+    </a>
+
+    <div class="nav-links">
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
+
+      <a
+        routerLink="/menu"
+        routerLinkActive="active">
+        Menu
+      </a>
+
+      <a
+        routerLink="/reservation"
+        routerLinkActive="active">
+        Reservation
+      </a>
+
+
+      @if (!isLoggedIn) {
+
+        <a
+          routerLink="/login"
+          routerLinkActive="active">
+          Login
+        </a>
+
+        <a
+          routerLink="/signup"
+          routerLinkActive="active"
+          class="signup-btn">
+          Sign Up
+        </a>
+
+      } @else {
+
+        <span class="welcome">
+          Hi, {{ userName }}
+        </span>
+
+        @if (userRole === 'admin') {
+
+          <a
+            routerLink="/admin-dashboard"
+            routerLinkActive="active">
+            Admin Dashboard
+          </a>
+
+        }
+
+        <a
+          routerLink="/profile"
+          routerLinkActive="active">
+          Profile
+        </a>
+
+        <button
+          type="button"
+          class="logout-btn"
+          (click)="logout()">
+          Logout
+        </button>
+
+      }
+
+    </div>
+
+  </div>
+
+</nav>

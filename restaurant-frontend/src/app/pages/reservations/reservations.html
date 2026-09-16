@@ -1,0 +1,327 @@
+<section class="reservation-page">
+
+  <div class="reservation-header">
+
+    <p class="small-title">RESERVE YOUR TABLE</p>
+
+    <h1>
+      Dine with <span>Savora</span>
+    </h1>
+
+    <p class="intro">
+      Reserve your table and enjoy an unforgettable dining experience.
+    </p>
+
+  </div>
+
+
+  <!-- Reservation Form -->
+
+  <div class="reservation-container">
+
+    <div class="reservation-info">
+
+      <h2>Make a Reservation</h2>
+
+      <p>
+        Choose your preferred date and time, and we'll take care of the rest.
+      </p>
+
+      <div class="info-item">
+        <strong>Fresh Ingredients</strong>
+        <span>Carefully selected ingredients in every dish.</span>
+      </div>
+
+      <div class="info-item">
+        <strong>Elegant Atmosphere</strong>
+        <span>A warm and comfortable dining experience.</span>
+      </div>
+
+      <div class="info-item">
+        <strong>Exceptional Service</strong>
+        <span>Our team is here to make your visit special.</span>
+      </div>
+
+    </div>
+
+
+    <form
+      class="reservation-form"
+      (ngSubmit)="makeReservation()"
+    >
+
+      <div class="form-group">
+
+        <label for="fullName">
+          Full Name
+        </label>
+
+        <input
+          id="fullName"
+          type="text"
+          name="fullName"
+          [(ngModel)]="reservation.fullName"
+          placeholder="Enter your full name"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="reservation.email"
+          placeholder="Enter your email"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label for="date">
+            Date
+          </label>
+
+          <input
+            id="date"
+            type="date"
+            name="date"
+            [(ngModel)]="reservation.date"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="time">
+            Time
+          </label>
+
+          <select
+            id="time"
+            name="time"
+            [(ngModel)]="reservation.time"
+            required
+          >
+
+            <option value="">
+              Select Time
+            </option>
+
+            <option value="01:00 AM">01:00 AM</option>
+            <option value="02:00 AM">02:00 AM</option>
+            <option value="03:00 AM">03:00 AM</option>
+            <option value="04:00 AM">04:00 AM</option>
+            <option value="05:00 AM">05:00 AM</option>
+            <option value="06:00 AM">06:00 AM</option>
+            <option value="07:00 AM">07:00 AM</option>
+            <option value="08:00 AM">08:00 AM</option>
+            <option value="09:00 AM">09:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+
+            <option value="12:00 PM">12:00 PM</option>
+
+            <option value="01:00 PM">01:00 PM</option>
+            <option value="02:00 PM">02:00 PM</option>
+            <option value="03:00 PM">03:00 PM</option>
+            <option value="04:00 PM">04:00 PM</option>
+            <option value="05:00 PM">05:00 PM</option>
+            <option value="06:00 PM">06:00 PM</option>
+            <option value="07:00 PM">07:00 PM</option>
+            <option value="08:00 PM">08:00 PM</option>
+            <option value="09:00 PM">09:00 PM</option>
+            <option value="10:00 PM">10:00 PM</option>
+            <option value="11:00 PM">11:00 PM</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="guests">
+          Number of Guests
+        </label>
+
+        <select
+          id="guests"
+          name="guests"
+          [(ngModel)]="reservation.guests"
+        >
+
+          <option [ngValue]="1">
+            1 Guest
+          </option>
+
+          <option [ngValue]="2">
+            2 Guests
+          </option>
+
+          <option [ngValue]="3">
+            3 Guests
+          </option>
+
+          <option [ngValue]="4">
+            4 Guests
+          </option>
+
+          <option [ngValue]="5">
+            5 Guests
+          </option>
+
+          <option [ngValue]="6">
+            6 Guests
+          </option>
+
+          <option [ngValue]="7">
+            7 Guests
+          </option>
+
+          <option [ngValue]="8">
+            8 Guests
+          </option>
+
+        </select>
+
+      </div>
+
+
+      @if (successMessage) {
+
+        <div class="success-message">
+          {{ successMessage }}
+        </div>
+
+      }
+
+
+      @if (errorMessage) {
+
+        <div class="error-message">
+          {{ errorMessage }}
+        </div>
+
+      }
+
+
+      <button
+        type="submit"
+        [disabled]="loading"
+      >
+
+        @if (loading) {
+
+          Booking...
+
+        } @else {
+
+          Reserve a Table
+
+        }
+
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <!-- My Reservations -->
+
+  @if (reservations.length > 0) {
+
+    <div class="my-reservations">
+
+      <div class="my-reservations-header">
+
+        <p class="small-title">
+          YOUR BOOKINGS
+        </p>
+
+        <h2>
+          My Reservations
+        </h2>
+
+        <p>
+          Here are your current reservations at Savora.
+        </p>
+
+      </div>
+
+
+      <div class="reservation-list">
+
+        @for (item of reservations; track item._id) {
+
+          <div class="reservation-card">
+
+            <div class="reservation-card-top">
+
+              <h3>
+                {{ item.fullName }}
+              </h3>
+
+              <span
+                class="status"
+                [class.confirmed]="item.status === 'confirmed'"
+                [class.cancelled]="item.status === 'cancelled'"
+              >
+                {{ item.status || 'pending' }}
+              </span>
+
+            </div>
+
+
+            <div class="reservation-details">
+
+              <div>
+                <strong>Date</strong>
+                <span>{{ item.date }}</span>
+              </div>
+
+              <div>
+                <strong>Time</strong>
+                <span>{{ item.time }}</span>
+              </div>
+
+              <div>
+                <strong>Guests</strong>
+                <span>{{ item.guests }}</span>
+              </div>
+
+              <div>
+                <strong>Email</strong>
+                <span>{{ item.email }}</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+</section>

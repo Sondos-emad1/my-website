@@ -1,0 +1,114 @@
+<section class="profile-page">
+
+  <div class="profile-container">
+
+    <p class="small-title">
+      MY ACCOUNT
+    </p>
+
+    <h1>
+      Welcome to <span>Savora</span>
+    </h1>
+
+
+    @if (user) {
+
+      <div class="profile-card">
+
+        <div class="profile-icon">
+          {{ user.name.charAt(0).toUpperCase() }}
+        </div>
+
+
+        <div class="profile-info">
+
+          <div class="info-item">
+
+            <span>
+              Name
+            </span>
+
+            <strong>
+              {{ user.name }}
+            </strong>
+
+          </div>
+
+
+          <div class="info-item">
+
+            <span>
+              Email
+            </span>
+
+            <strong>
+              {{ user.email }}
+            </strong>
+
+          </div>
+
+
+          <div class="info-item">
+
+            <span>
+              Role
+            </span>
+
+            <strong>
+              {{ user.role }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="profile-buttons">
+
+          <button
+            type="button"
+            class="reservation-btn"
+            (click)="goToReservations()"
+          >
+            My Reservations
+          </button>
+
+
+          <button
+            type="button"
+            class="logout-btn"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      </div>
+
+    } @else {
+
+      <div class="not-logged-in">
+
+        <h2>
+          You are not signed in
+        </h2>
+
+        <p>
+          Please sign in to view your profile.
+        </p>
+
+        <button
+          type="button"
+          (click)="goToLogin()"
+        >
+          Sign In
+        </button>
+
+      </div>
+
+    }
+
+  </div>
+
+</section>
