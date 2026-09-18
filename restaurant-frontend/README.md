@@ -1,59 +1,353 @@
-# RestaurantFrontend
+# Savora Restaurant Management System — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.6.
+The frontend of **Savora Restaurant Management System** is built using Angular.
 
-## Development server
+It provides the user interface for customers and admins and connects with the backend REST API.
 
-To start a local development server, run:
+## Features
+
+* Home page
+* Menu browsing
+* Customer signup
+* Customer login
+* User authentication
+* JWT authentication
+* Customer profile
+* Table reservations
+* Admin dashboard
+* Admin menu management
+* Admin reservation management
+* Admin user management
+* Role-based access
+* Route Guards
+* HTTP Interceptors
+* API integration
+* Responsive user interface
+
+## Technologies Used
+
+* Angular
+* TypeScript
+* HTML
+* CSS
+* RxJS
+* HttpClient
+* Signals
+* Template-driven Forms
+* Angular Router
+* JWT Authentication
+* SweetAlert2
+
+## Angular Concepts Used
+
+### Components
+
+The application is divided into different Angular components for each page and feature.
+
+Examples:
+
+* Home
+* Menu
+* Login
+* Signup
+* Reservations
+* Profile
+* Admin Dashboard
+* Admin Menu
+* Admin Reservations
+* Admin Users
+
+### Data Binding
+
+Data binding is used to connect the TypeScript logic with the HTML templates.
+
+Examples include:
+
+* Interpolation
+* Two-way binding using `ngModel`
+* Event binding
+
+### Control Flow
+
+Angular control flow is used to display content depending on conditions.
+
+The project uses:
+
+```text
+@if
+@else
+@for
+```
+
+For example, the navbar displays different options depending on whether the user is logged in and whether the user is an admin.
+
+### Signals
+
+Signals are used to manage reactive state in the frontend.
+
+For example, dashboard values can update the UI when their values change.
+
+### Forms
+
+The project uses **Template-driven Forms** for forms such as:
+
+* Login
+* Signup
+
+`ngModel` is used for two-way data binding between the form inputs and the component.
+
+### Services
+
+The project uses services to keep shared application logic in one place.
+
+The `AuthService` is responsible for:
+
+* Login
+* Logout
+* Storing the JWT token
+* Storing user information
+* Checking login status
+* Managing authentication state
+
+### HttpClient
+
+Angular `HttpClient` is used to communicate with the backend REST API.
+
+Examples:
+
+```text
+GET
+POST
+PUT
+DELETE
+```
+
+The frontend communicates with the backend running on:
+
+```text
+http://localhost:3000
+```
+
+### HTTP Interceptors
+
+The application uses HTTP interceptors to handle HTTP requests and errors.
+
+#### Auth Interceptor
+
+The Auth Interceptor adds the JWT token to protected requests using the Authorization header.
+
+```text
+Authorization: Bearer <token>
+```
+
+#### Error Interceptor
+
+The Error Interceptor handles HTTP errors such as unauthorized requests.
+
+### Routing
+
+Angular Router is used to navigate between pages.
+
+Main routes include:
+
+```text
+/
+ /menu
+ /reservation
+ /login
+ /signup
+ /profile
+ /admin-dashboard
+ /admin-menu
+ /admin-reservations
+ /admin-users
+```
+
+Navigation is implemented using:
+
+* `RouterLink`
+* `Router.navigate()`
+
+### Route Guard
+
+Route Guards protect admin pages.
+
+The guard checks the user's authentication and role before allowing access to protected routes.
+
+Customers cannot access admin pages.
+
+## Project Structure
+
+```text
+restaurant-frontend/
+│
+├── src/
+│   └── app/
+│       ├── components/
+│       ├── pages/
+│       │   ├── home/
+│       │   ├── menu/
+│       │   ├── reservations/
+│       │   ├── login/
+│       │   ├── signup/
+│       │   ├── profile/
+│       │   ├── admin-dashboard/
+│       │   ├── admin-menu/
+│       │   ├── admin-reservations/
+│       │   └── admin-users/
+│       │
+│       ├── services/
+│       ├── guards/
+│       ├── interceptors/
+│       ├── app.routes.ts
+│       ├── app.config.ts
+│       └── app.ts
+│
+├── public/
+├── package.json
+├── angular.json
+├── tsconfig.json
+└── README.md
+```
+
+## Backend Connection
+
+The Angular frontend communicates with the backend through REST API endpoints.
+
+Example:
+
+```text
+Angular
+   ↓
+HttpClient
+   ↓
+HTTP Request
+   ↓
+Node.js / Express Backend
+   ↓
+MongoDB
+```
+
+For protected requests:
+
+```text
+Angular
+   ↓
+Auth Interceptor
+   ↓
+JWT Token
+   ↓
+Express Backend
+   ↓
+Authentication Middleware
+   ↓
+Controller
+   ↓
+MongoDB
+```
+
+## Authentication Flow
+
+```text
+Signup / Login
+      ↓
+Backend
+      ↓
+JWT Token
+      ↓
+AuthService
+      ↓
+localStorage
+      ↓
+Auth Interceptor
+      ↓
+Protected API Requests
+```
+
+## Running the Project
+
+### 1. Install dependencies
+
+Open the frontend project folder and run:
+
+```bash
+npm install
+```
+
+### 2. Start the Angular application
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+If Angular CLI is not recognized, use:
 
 ```bash
-ng generate component component-name
+ng.cmd serve
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 3. Open the application
 
-```bash
-ng generate --help
+The frontend will normally run on:
+
+```text
+http://localhost:4200
 ```
 
-## Building
+Make sure the backend is also running on:
 
-To build the project run:
-
-```bash
-ng build
+```text
+http://localhost:3000
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Backend
 
-## Running unit tests
+The frontend requires the Savora backend API to be running.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Backend technologies:
 
-```bash
-ng test
-```
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* bcrypt
+* Multer
 
-## Running end-to-end tests
+## User Roles
 
-For end-to-end (e2e) testing, run:
+### Customer
 
-```bash
-ng e2e
-```
+Customers can:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+* Create an account
+* Login
+* View the menu
+* Create reservations
+* View their profile
+* Logout
 
-## Additional Resources
+### Admin
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Admins can:
+
+* Access the admin dashboard
+* Manage menu items
+* Manage reservations
+* Manage users
+* Upload menu images
+
+## Security
+
+The frontend uses:
+
+* JWT authentication
+* Auth Interceptor
+* Route Guards
+* Role-based access
+* Authentication service
+* Protected admin routes
+
+## Author
+
+Sondos Emad
